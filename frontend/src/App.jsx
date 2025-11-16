@@ -1,6 +1,41 @@
 import "./App.css";
+import {useState, useEffect} from "react";
 
 function App() {
+
+	const [isLoading, setIsLoading] = useState(false);
+	const [quotes, setQuotes] = useState([]);
+
+
+	const getQuotes = async () => {
+		setIsLoading(true);
+		
+		try{
+			const res = await fetch("api/quote")
+			const json = await res.json()
+			setQuotes(json)
+		}
+
+		catch (error){
+			console.error("Get quotes API failed: ", error)
+		}
+
+		finally{
+			setIsLoading(false)
+		}
+	}
+
+
+
+
+
+	useEffect(() => {
+
+    getQuotes();
+
+  }, []);
+
+
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
@@ -23,6 +58,34 @@ function App() {
 				<p>Zot Zot Zot!</p>
 				<p>Every day</p>
 			</div>
+
+
+		{
+			isLoading ?
+			// What to show when it is loading
+			(<div>
+				
+				
+				
+				
+				
+			</div>) :
+			// What to show when it isn't
+			quotes.map((quote, index) => (
+
+				<div key={index}>
+					<h1>{quote.message}</h1>
+
+
+
+				</div>
+
+			))
+		
+		
+
+		}
+ 
 		</div>
 	);
 }
