@@ -29,6 +29,14 @@ cd frontend
 npm ci
 ```
 
+##### Installing Extra Packages
+```bash
+npm install -D tailwindcss@^3 postcss autoprefixer
+npx tailwindcss init -p
+```
+
+
+
 ### Backend Setup
 
 For the Python dependencies, we recommend creating a virtual enviroment:

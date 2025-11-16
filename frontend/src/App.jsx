@@ -55,9 +55,9 @@ function App() {
   }, [maxAge]);
 
 	return (
-		<div className="App">
+		<div className=" bg-red-200">
 			{/* TODO: include an icon for the quote book */}
-			<h1>Hack at UCI Tech Deliverable</h1>
+			<h1 className="text-2xl">Hack at UCI Tech Deliverable</h1>
 
 			<h2>Submit a quote</h2>
 			{/* TODO: implement custom form submission logic to not refresh the page */}
