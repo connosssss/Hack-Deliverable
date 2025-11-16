@@ -1,5 +1,6 @@
 import "./App.css";
 import {useState, useEffect} from "react";
+import Quote from "./components/quote.jsx";
 
 function App() {
 
@@ -80,33 +81,31 @@ function App() {
 				<p>Every day</p>
 			</div>
 
+		{/* Not worrying about styling yet*/}
+		<div className="w-full flex items-center flex-col gap-3">
+			{
 
-		{
-			isLoading ?
-			// What to show when it is loading
-			(<div>
+				isLoading ?
+				// What to show when it is loading
+				(<div>
 				
 				
 				
 				
 				
-			</div>) :
-			// What to show when it isn't
-			quotes.map((quote, index) => (
+				</div>) :
+				// What to show when it isn't
+				quotes.map((quote, index) => (
 
-				<div key={index}>
-					<h1>{quote.message}</h1>
-					<p>{quote.time}</p>
+				
+					<Quote name={quote.name} quote={quote.message} time={quote.time} key={index}/>
 
-
-
-				</div>
-
-			))
+				))
 		
 		
 
-		}
+			}
+			</div>
  
 		</div>
 	);
