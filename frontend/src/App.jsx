@@ -4,15 +4,27 @@ import {useState, useEffect} from "react";
 function App() {
 
 	const [isLoading, setIsLoading] = useState(false);
+	const [maxAge, setMaxAge] = useState();
+
+
+	
 	const [quotes, setQuotes] = useState([]);
 
 
-	const getQuotes = async () => {
+
+
+	const getQuotes = async (maxAge) => {
 		setIsLoading(true);
 		
+
+		// Make it so the default is all in case no date has been inputted
 		try{
-			const res = await fetch("api/quote")
+			const fetchURL = maxAge ? `api/quote?max_age=${maxAge}` : "api/quote";
+			const res = await fetch(fetchURL)
 			const json = await res.json()
+
+			json.sort((a, b) => new Date(b.time) - new Date(a.time))
+
 			setQuotes(json)
 		}
 
@@ -27,7 +39,7 @@ function App() {
 
 
 
-
+	// starts off by showing all quotes, then filtering once a max age is inputted
 
 	useEffect(() => {
 
@@ -35,6 +47,12 @@ function App() {
 
   }, []);
 
+  useEffect(() => {
+
+
+   	getQuotes(maxAge);
+
+  }, [maxAge]);
 
 	return (
 		<div className="App">
@@ -52,6 +70,9 @@ function App() {
 			</form>
 
 			<h2>Previous Quotes</h2>
+
+			<input type="date" value={maxAge} onChange={(e) => setMaxAge(e.target.value)} />
+
 			{/* TODO: Display the actual quotes from the database */}
 			<div className="messages">
 				<p>Peter Anteater</p>
@@ -75,6 +96,7 @@ function App() {
 
 				<div key={index}>
 					<h1>{quote.message}</h1>
+					<p>{quote.time}</p>
 
 
 

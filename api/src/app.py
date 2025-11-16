@@ -52,7 +52,26 @@ def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
 
 # starting off by just fetching all quotes and getting basic things working (sorry if this is going to be too small of steps)
 @app.get("/quote")
-async def get_quotes() -> list[Quote]:
+async def get_quotes(max_age: str = None) -> list[Quote]:
     quotes = database["quotes"]
 
-    return quotes
+    if not max_age:
+        return quotes
+
+
+    try:
+        max_age_date = datetime.fromisoformat(max_age)
+
+        filtered = []
+
+        for quote in quotes:
+            print(datetime.fromisoformat(quote["time"]))
+            if datetime.fromisoformat(quote["time"]) >= max_age_date:
+                filtered.append(quote)
+
+        return filtered
+
+    except Exception as error:
+        print(f"Error filtering quotes, returning all of them \n Error Message: {error}")
+        return quotes
+        
