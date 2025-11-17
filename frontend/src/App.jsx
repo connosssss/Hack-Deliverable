@@ -7,6 +7,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 
 
@@ -36,7 +38,6 @@ Rock Grays:
 #2C3D55
 
 
-I dont know if im gonna 100% stick with this one yet
 Library brown:
 #C3A995
 #AB947E
@@ -153,6 +154,11 @@ function App() {
 
 	}
 
+	const darkTheme = createTheme({
+  		palette: {
+    		mode: 'dark',
+  		},
+	});
 
 
 	// starts off by showing all quotes, then filtering once a max age is inputted
@@ -175,7 +181,7 @@ function App() {
 		flex flex-col items-center gap-10">
 			{/* TODO: include an icon for the quote book */}
 			<div className="w-full flex flex-row justify-center items-center gap-6
-			p-10 bg-[#8A7968] shadow-lg
+			p-10 bg-[#8A7968] shadow-md
 			">
 				<img src={quotebookLogo} alt="Quotebook Logo" className="h-[5rem] w-[5rem] invert"/>
 				<h1 className="text-5xl font-bold">Hack at UCI Tech Deliverable</h1>
@@ -224,9 +230,9 @@ function App() {
 				</form>
 			</div>
 
-
-			<FormControl className="text-white">
-				<InputLabel id="max-age">Filter by Quote Age</InputLabel>
+			<ThemeProvider theme={darkTheme}>
+			<FormControl className="w-[30%] " sx={{color: 'white' }}>
+				<InputLabel id="max-age" className="text-white">Filter by Quote Age</InputLabel>
 				
 				<Select labelId="max-age" id="max-age-select" value={timePeriod} label="Filter by Time"
 					onChange={(e) => setTimePeriod(e.target.value)}
@@ -241,8 +247,11 @@ function App() {
 
 				</Select>
 			</FormControl>
+			</ThemeProvider>
 
-			<h2>Previous Quotes</h2>
+			<h2 className="w-full h-[3rem] text-center text-2xl font-semibold 
+			border-b-2 borer-[#C3A995] ">Previous Quotes</h2>
+			
 
 
 
@@ -262,7 +271,6 @@ function App() {
 				// What to show when it isn't
 				quotes.map((quote, index) => (
 
-				
 					<Quote name={quote.name} quote={quote.message} time={quote.time} key={index}/>
 
 				))
