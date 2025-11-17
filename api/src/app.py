@@ -65,7 +65,6 @@ async def get_quotes(max_age: str = None) -> list[Quote]:
         filtered = []
 
         for quote in quotes:
-            print(datetime.fromisoformat(quote["time"]))
             if datetime.fromisoformat(quote["time"]) >= max_age_date:
                 filtered.append(quote)
 

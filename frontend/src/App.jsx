@@ -2,26 +2,61 @@ import "./App.css";
 import {useState, useEffect} from "react";
 import Quote from "./components/quote.jsx";
 
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+
+
 function App() {
 
 	const [isLoading, setIsLoading] = useState(false);
 
-	const [maxAge, setMaxAge] = useState();
+	const [timePeriod, setTimePeriod] = useState("all");
 	const [formName, setFormName] = useState("");
 	const [formQuote, setFormQuote] = useState("");
 	
 	const [quotes, setQuotes] = useState([]);
 
 
+	const getMaxAge = (timePeriod) => {
+		if(timePeriod == "allTime"){
+			return null;
+		}
 
+		const now = new Date()
+		const date = new Date();
 
-	const getQuotes = async (maxAge) => {
+		switch(timePeriod) {
+			case "week":
+				date.setDate(now.getDate() - 7);
+				break;
+
+			case "month":
+				date.setMonth(now.getMonth() - 1);
+				break;
+
+			case "year":
+				date.setFullYear(now.getFullYear() - 1);
+				break;
+
+			default:
+				return null;
+		}
+
+		// Returns only the date part and gets rid of the time
+		// For example date.toISOString() when working on this would be 2025-10-17T01:15:08.146Z
+		return date.toISOString().split('T')[0];
+	}
+
+	const getQuotes = async (timePeriod) => {
 		setIsLoading(true);
 		
 
 		// Make it so the default is all in case no date has been inputted
 		try{
-			const fetchURL = maxAge ? `api/quote?max_age=${maxAge}` : "api/quote";
+			const formattedMaxAge = getMaxAge(timePeriod)
+			const fetchURL = formattedMaxAge ? `api/quote?max_age=${formattedMaxAge}` : "api/quote";
 			const res = await fetch(fetchURL)
 			const json = await res.json()
 
@@ -38,6 +73,9 @@ function App() {
 			setIsLoading(false)
 		}
 	}
+
+
+	
 
 
 	const handleFormSubmission = async (e) =>{
@@ -58,7 +96,7 @@ function App() {
 				setFormName("")
 				setFormQuote("");
 
-				getQuotes(maxAge);
+				getQuotes(timePeriod);
 			}
 
 			else{
@@ -86,9 +124,9 @@ function App() {
   useEffect(() => {
 
 
-   	getQuotes(maxAge);
+   	getQuotes(timePeriod);
 
-  }, [maxAge]);
+  }, [timePeriod]);
 
 	return (
 		<div className=" bg-red-200">
@@ -110,16 +148,27 @@ function App() {
 				<button type="submit">Submit</button>
 			</form>
 
+
+			<FormControl className="mb-6">
+				<InputLabel id="max-age">Filter by Quote Age</InputLabel>
+				
+				<Select labelId="max-age" id="max-age-select" value={timePeriod} label="Filter by Time"
+					onChange={(e) => setTimePeriod(e.target.value)}
+				>
+					<MenuItem value="week">Last Week Only</MenuItem>
+
+					<MenuItem value="month">Last Month Only</MenuItem>
+
+					<MenuItem value="year">Last Year Only</MenuItem>
+
+					<MenuItem value="all">All Time</MenuItem>
+
+				</Select>
+			</FormControl>
+
 			<h2>Previous Quotes</h2>
 
-			<input type="date" value={maxAge} onChange={(e) => setMaxAge(e.target.value)} />
 
-			{/* TODO: Display the actual quotes from the database */}
-			<div className="messages">
-				<p>Peter Anteater</p>
-				<p>Zot Zot Zot!</p>
-				<p>Every day</p>
-			</div>
 
 		{/* Not worrying about styling yet*/}
 		<div className="w-full flex items-center flex-col gap-3">
