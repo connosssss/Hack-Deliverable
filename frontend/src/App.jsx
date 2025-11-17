@@ -35,6 +35,8 @@ Rock Grays:
 #3E4C5E
 #2C3D55
 
+
+I dont know if im gonna 100% stick with this one yet
 Library brown:
 #C3A995
 #AB947E
@@ -131,6 +133,11 @@ function App() {
 				setFormName("")
 				setFormQuote("");
 
+				const textarea = document.getElementById('quote-area');
+				if(textarea) {
+					textarea.style.height = 'auto';
+				}
+
 				getQuotes(timePeriod);
 			}
 
@@ -167,10 +174,10 @@ function App() {
 		<div className="bg-[#6F5E53] text-white w-full h-full
 		flex flex-col items-center gap-10">
 			{/* TODO: include an icon for the quote book */}
-			<div className="w-full flex flex-col items-center gap-5 
+			<div className="w-full flex flex-row justify-center items-center gap-6
 			p-10 bg-[#8A7968] shadow-lg
 			">
-				<img src={quotebookLogo} alt="Quotebook Logo" className="h-[7rem] invert"/>
+				<img src={quotebookLogo} alt="Quotebook Logo" className="h-[5rem] w-[5rem] invert"/>
 				<h1 className="text-5xl font-bold">Hack at UCI Tech Deliverable</h1>
 			</div>
 
@@ -192,25 +199,24 @@ function App() {
 
 						<input type="text" name="name" id="input-name" value={formName}
 						onChange={(e) => setFormName(e.target.value)} 
-						className="rounded-sm bg-[#C3A995] focus:outline-none focus:brightness-125 px-8 py-5
+						className="rounded-sm bg-[#C3A995] focus:outline-none focus:brightness-125 w-3/4 px-5 py-5
 						transition-all duration-300  " required />
 					</div>
 
 					<div className="w-full flex flex-col items-center gap-3">
 						<label htmlFor="input-message"
 						className="text-xl font-medium">Quote</label>
-						{/*  Changed from input to text area so it could expand once a lot of text is inserted
-						also to whoever is seeing this, sorry that this commit was so big I didn't expect to want to change it while styling */}
+						{/*  Changed from input to text area so it could expand once a lot of text is inserted */}
 						<textarea
-            				value={formQuote} rows="1"
+            				value={formQuote} rows="1" id="quote-area"
             				onChange={(e) => {
               				setFormQuote(e.target.value);
               				e.target.style.height = 'auto';
               				e.target.style.height = e.target.scrollHeight + 'px';
             				}}
-							className="rounded-sm bg-[#C3A995] focus:outline-none focus:brightness-125 px-8 py-5
+							className="rounded-sm bg-[#C3A995] focus:outline-none focus:brightness-125 w-3/4 px-5 pt-7
 							transition-all duration-300  resize-none overflow-hidden min-h-[5rem]"
-          					/>
+          					 required/>
 					</div>
 					<button type="submit"
 					className="bg-[#C3A995] hover:brightness-125 px-6 py-3 rounded-md
