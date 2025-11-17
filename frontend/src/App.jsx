@@ -238,8 +238,8 @@ function App() {
 
 		{/* Not worrying about styling yet*/}
 		<div className="w-full flex items-center flex-col gap-8 pb-20 ">
-			<h2 className="w-full h-[3rem] text-center text-3xl font-semibold 
-			border-b-4 border-[#C3A995] bg-[#6F5E53]">Previous Quotes</h2>
+			<h2 className="w-1/2 h-[3rem] text-center text-3xl font-semibold 
+			border-b-2 border-[#C3A995] bg-[#6F5E53] mt-5">Previous Quotes</h2>
 			{
 
 				(isLoading && quotes.length < 1) ?
