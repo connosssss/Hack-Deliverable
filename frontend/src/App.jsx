@@ -214,7 +214,7 @@ function App() {
 
 			<ThemeProvider theme={darkTheme}>
 			<FormControl className="w-[30%] " sx={{color: 'white' }}>
-				<InputLabel id="max-age" className="text-white">Filter by Quote Age</InputLabel>
+				<InputLabel id="max-age" className=""> Filter by Date</InputLabel>
 				
 				<Select labelId="max-age" id="max-age-select" value={timePeriod} label="Filter by Time"
 					onChange={(e) => setTimePeriod(e.target.value)} sx={{textAlign: "center"}}
@@ -236,7 +236,7 @@ function App() {
 
 
 
-		{/* Not worrying about styling yet*/}
+
 		<div className="w-full flex items-center flex-col gap-8 pb-20 ">
 			<h2 className="w-1/2 h-[3rem] text-center text-3xl font-semibold 
 			border-b-2 border-[#C3A995] bg-[#6F5E53] mt-5">Previous Quotes</h2>
