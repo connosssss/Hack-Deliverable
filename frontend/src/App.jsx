@@ -249,21 +249,21 @@ function App() {
 			</FormControl>
 			</ThemeProvider>
 
-			<h2 className="w-full h-[3rem] text-center text-2xl font-semibold 
+			<h2 className="w-full h-[3rem] text-center text-3xl font-semibold 
 			border-b-2 borer-[#C3A995] ">Previous Quotes</h2>
 			
 
 
 
 		{/* Not worrying about styling yet*/}
-		<div className="w-full flex items-center flex-col gap-3">
+		<div className="w-full flex items-center flex-col gap-8 pb-20">
 			{
 
-				isLoading ?
-				// What to show when it is loading
-				(<div>
+				(isLoading && quotes.length < 1) ?
+				// What to show when it is loading for the first time 
+				(<div className="h-[40rem] text-white text-2xl w-full text-center">
 				
-				
+				Loading ...
 				
 				
 				
