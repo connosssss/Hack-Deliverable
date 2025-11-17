@@ -164,28 +164,62 @@ function App() {
   }, [timePeriod]);
 
 	return (
-		<div className=" bg-red-200">
+		<div className="bg-[#6F5E53] text-white w-full h-full
+		flex flex-col items-center gap-10">
 			{/* TODO: include an icon for the quote book */}
-			<img src={quotebookLogo} alt="Quotebook Logo" className="w-1/12 h-1/12"/>
-			<h1 className="text-2xl">Hack at UCI Tech Deliverable</h1>
-
-			<h2>Submit a quote</h2>
-			{/* TODO: implement custom form submission logic to not refresh the page */}
-			<form onSubmit={handleFormSubmission}>
-				<label htmlFor="input-name">Name</label>
-
-				<input type="text" name="name" id="input-name" value={formName}
-				onChange={(e) => setFormName(e.target.value)} required />
-
-				<label htmlFor="input-message">Quote</label>
-				<input type="text" name="message" id="input-message" value={formQuote}
-				onChange={(e) => setFormQuote(e.target.value)} required />
-
-				<button type="submit">Submit</button>
-			</form>
+			<div className="w-full flex flex-col items-center gap-5 
+			p-10 bg-[#8A7968] shadow-lg
+			">
+				<img src={quotebookLogo} alt="Quotebook Logo" className="h-[7rem] invert"/>
+				<h1 className="text-5xl font-bold">Hack at UCI Tech Deliverable</h1>
+			</div>
 
 
-			<FormControl className="mb-6">
+
+			<div className="w-[30%] min-h-[28rem] flex flex-col items-center
+			 p-8 rounded-2xl shadow-lg bg-[#8A7968]">
+
+				<h2 className="text-3xl font-semibold">Submit a quote</h2>
+				{/* TODO: implement custom form submission logic to not refresh the page */}
+				
+				<form onSubmit={handleFormSubmission}
+				className="h-full w-full flex flex-col items-center mt-[2rem]
+				 gap-5 ">
+
+					<div className="w-full flex flex-col items-center gap-3">
+						<label htmlFor="input-name"
+						className="text-xl font-medium">Name</label>
+
+						<input type="text" name="name" id="input-name" value={formName}
+						onChange={(e) => setFormName(e.target.value)} 
+						className="rounded-sm bg-[#C3A995] focus:outline-none focus:brightness-125 px-8 py-5
+						transition-all duration-300  " required />
+					</div>
+
+					<div className="w-full flex flex-col items-center gap-3">
+						<label htmlFor="input-message"
+						className="text-xl font-medium">Quote</label>
+						{/*  Changed from input to text area so it could expand once a lot of text is inserted
+						also to whoever is seeing this, sorry that this commit was so big I didn't expect to want to change it while styling */}
+						<textarea
+            				value={formQuote} rows="1"
+            				onChange={(e) => {
+              				setFormQuote(e.target.value);
+              				e.target.style.height = 'auto';
+              				e.target.style.height = e.target.scrollHeight + 'px';
+            				}}
+							className="rounded-sm bg-[#C3A995] focus:outline-none focus:brightness-125 px-8 py-5
+							transition-all duration-300  resize-none overflow-hidden min-h-[5rem]"
+          					/>
+					</div>
+					<button type="submit"
+					className="bg-[#C3A995] hover:brightness-125 px-6 py-3 rounded-md
+					transition-all duration-300">Submit</button>
+				</form>
+			</div>
+
+
+			<FormControl className="text-white">
 				<InputLabel id="max-age">Filter by Quote Age</InputLabel>
 				
 				<Select labelId="max-age" id="max-age-select" value={timePeriod} label="Filter by Time"
