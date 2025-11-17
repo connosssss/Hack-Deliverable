@@ -5,9 +5,10 @@ import Quote from "./components/quote.jsx";
 function App() {
 
 	const [isLoading, setIsLoading] = useState(false);
+
 	const [maxAge, setMaxAge] = useState();
-
-
+	const [formName, setFormName] = useState("");
+	const [formQuote, setFormQuote] = useState("");
 	
 	const [quotes, setQuotes] = useState([]);
 
@@ -39,6 +40,40 @@ function App() {
 	}
 
 
+	const handleFormSubmission = async (e) =>{
+		e.preventDefault();
+
+		try {
+			const data = new FormData();
+			data.append("name", formName)
+			data.append("message", formQuote)
+
+			const res = await fetch("api/quote", {
+				method: "POST", 
+				body: data
+			})
+
+
+			if(res.ok){
+				setFormName("")
+				setFormQuote("");
+
+				getQuotes(maxAge);
+			}
+
+			else{
+				console.error("Form Submission Failed: ", res.status)
+			}
+		}
+		
+		catch(error) {
+			console.error("Form Submission Failed: ", error)
+		}
+
+
+	}
+
+
 
 	// starts off by showing all quotes, then filtering once a max age is inputted
 
@@ -62,11 +97,16 @@ function App() {
 
 			<h2>Submit a quote</h2>
 			{/* TODO: implement custom form submission logic to not refresh the page */}
-			<form action="/api/quote" method="post">
+			<form onSubmit={handleFormSubmission}>
 				<label htmlFor="input-name">Name</label>
-				<input type="text" name="name" id="input-name" required />
+
+				<input type="text" name="name" id="input-name" value={formName}
+				onChange={(e) => setFormName(e.target.value)} required />
+
 				<label htmlFor="input-message">Quote</label>
-				<input type="text" name="message" id="input-message" required />
+				<input type="text" name="message" id="input-message" value={formQuote}
+				onChange={(e) => setFormQuote(e.target.value)} required />
+
 				<button type="submit">Submit</button>
 			</form>
 
