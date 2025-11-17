@@ -1,12 +1,47 @@
 import "./App.css";
 import {useState, useEffect} from "react";
 import Quote from "./components/quote.jsx";
+import quotebookLogo from './static/quotebook.png';
 
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
+
+
+/*
+Possible Color Schemes
+Lightest -> Darkest as you go down the list
+
+Greenish:
+#132A13
+#31572C
+#4F772D
+#90A955
+#ECF39E
+
+Mint-Orange:
+#D0E3CC
+#F7FFDD
+#FCFDAF
+#EFD780
+#DBA159
+
+Rock Grays:
+#84828F
+#6A687A
+#536271
+#3E4C5E
+#2C3D55
+
+Library brown:
+#C3A995
+#AB947E
+#6F5E53
+#8A7968
+#593D3B
+*/
 
 function App() {
 
@@ -131,6 +166,7 @@ function App() {
 	return (
 		<div className=" bg-red-200">
 			{/* TODO: include an icon for the quote book */}
+			<img src={quotebookLogo} alt="Quotebook Logo" className="w-1/12 h-1/12"/>
 			<h1 className="text-2xl">Hack at UCI Tech Deliverable</h1>
 
 			<h2>Submit a quote</h2>
