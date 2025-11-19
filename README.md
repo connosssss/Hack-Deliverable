@@ -29,13 +29,6 @@ cd frontend
 npm ci
 ```
 
-##### Installing Extra Packages
-```bash
-npm install -D tailwindcss@^3 postcss autoprefixer
-npx tailwindcss init -p
-
-npm install @mui/material @emotion/react @emotion/styled
-```
 
 
 
